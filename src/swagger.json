@@ -1,0 +1,223 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title":"API de manipulação",
+        "description": "Essas API tem objetivo de manipulação",
+        "contact":{
+            "email":"eduardo_polanski@hotmail.com"
+        },
+        "version":"1.0.0"
+    },
+    "servers": [
+        {
+        "url": "http://localhost:3333/v1"
+        }
+    ],
+    "paths": {
+        "/product": {
+            "post": {
+                "summary": "Cadastro de produto",
+                "description": "Essa rota será responsavel por cadastrar um novo produto. Em ingredients passar o ID do ingrediente",
+                "tags": ["Products"],
+                "security": [{"bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            },
+                            "examples": {
+                                "product": {
+                                    "value": {
+                                        "name": "Café com leite",
+                                        "price": 2,
+                                        "image": "cafecomleite",
+                                        "ingredients": ["614a6a85d3b73dbfe2430e3a","614a6a9ed3b73dbfe2430e3d"],
+                                        "stock": 10
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description":"Unauthorizes"
+                    },
+                    "400": {
+                        "description":"Product already exists"
+                    },
+                    "200": {
+                        "description":"Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/ingredients": {
+            "post": {
+                "summary": "Cadastro de ingredientes",
+                "description": "Essa rota será responsavel por cadastrar um novo ingrediente.",
+                "tags": ["Ingredients"],
+                "security": [{"bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Ingredient"
+                            },
+                            "examples": {
+                                "product": {
+                                    "value": {
+                                        "name": "açucar",
+                                        "price": 0.5,
+                                        "unit": "gr"
+                                    }
+                                }
+                            }
+                        }  
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description":"Unauthorizes"
+                    },
+                    "400": {
+                        "description":"Product already exists"
+                    },
+                    "200": {
+                        "description":"Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Ingredient"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sellproduct": {
+            "post": {
+                "summary": "Cadastro de venda de produto",
+                "description": "Essa rota será responsavel por cadastrar venda de produto e ver se tem estoque para venda.",
+                "tags": ["sellProduct"],
+                "security": [{"bearerAuth": [] }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SellProduct"
+                            },
+                            "examples": {
+                                "sellProduct": {
+                                    "value": {
+                                        "nameProduct": "Café com leite",
+                                        "price": 5.5,
+                                        "amount": 1
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description":"Unauthorizes"
+                    },
+                    "400": {
+                        "description":"Product already exists"
+                    },
+                    "200": {
+                        "description":"Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type":"object",
+                                    "$ref":"#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    },
+    "components":{
+        "schemas":{
+            "Ingredient":{
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "unit": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Product":{
+                "type": "object",
+                "properties": {
+                    "name ": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "amount": {
+                        "type": "string"
+                    },
+                    "ingredients": {
+                        "type": "string"
+                    },
+                    "stock": {
+                        "type": "number"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SellProduct": {
+                "type": "object",
+                "properties": {
+                    "nameProduct, ": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "amount": {
+                        "type": "number"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth":{
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT" 
+            }
+        }
+    }
+}
