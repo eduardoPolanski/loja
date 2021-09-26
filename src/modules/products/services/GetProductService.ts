@@ -9,7 +9,9 @@ class GetProductService {
         
         const product = await productModel.findOne({name}).populate("ingredients",["name","price"])
         
-
+        if(!product) {
+            throw Error ("Product not found")
+        }
         return product;
     }
 }

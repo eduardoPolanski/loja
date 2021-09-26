@@ -7,6 +7,8 @@ import { GetProductController } from "../modules/products/controllers/GetProduct
 import multer from "multer"
 import { isAdmin } from "../middlewares/isAdmin"
 import { isAuthenticated } from "../middlewares/isAuthenticated"
+import { DeleteProductController } from "../modules/products/controllers/DeleteProductController"
+
 
 //Configurando multer para upload de imagens
 const upload = multer({
@@ -26,9 +28,12 @@ const createProductController = new CreateProductController()
 const listProductController = new ListProductsController()
 const sellProductController = new SellProductController()
 const getProductController = new GetProductController()
+const deleteProductController = new DeleteProductController()
+
 
 productRouter.post("/product", isAuthenticated, isAdmin, upload.single('image') ,createProductController.handle)
 productRouter.get("/products", listProductController.handle)
+productRouter.delete("/product/:name", deleteProductController.handle)
 
 productRouter.post("/sellproduct", isAuthenticated, isAdmin, sellProductController.handle)
 productRouter.get("/productreport/:name", getProductController.handle)
