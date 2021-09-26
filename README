@@ -19,10 +19,10 @@ $ cd loja
 
 #Instalando Dependências
 
-	$ yarn add
+	$ yarn install
 	$ yarn run dev 
 
-#Rotas com auteticadas precisam do token que é gerando quando feito login
+#Rotas com autenticadas precisam do token que é gerando quando feito login
 
 # Documentação está na rota localhost:3333/api-docs
 

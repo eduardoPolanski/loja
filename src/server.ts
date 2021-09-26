@@ -53,4 +53,4 @@ app.use((err: Error, request: Request, response:Response, next: NextFunction) =>
 })
 
 //porta do servidor
-app.listen(3333, () => console.log("Serve running port 3333"))
+app.listen(3333, () => console.log("Serve running http://localhost:3333"))
