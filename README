@@ -20,7 +20,7 @@ $ cd loja
 #Instalando Dependências
 
 	$ yarn install
-	$ yarn run dev 
+	$ yarn dev 
 
 #Rotas com autenticadas precisam do token que é gerando quando feito login
 
