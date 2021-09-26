@@ -31,6 +31,6 @@ productRouter.post("/product", isAuthenticated, isAdmin, upload.single('image') 
 productRouter.get("/products", listProductController.handle)
 
 productRouter.post("/sellproduct", isAuthenticated, isAdmin, sellProductController.handle)
-productRouter.get("/productreport", getProductController.handle)
+productRouter.get("/productreport/:name", getProductController.handle)
 
 export { productRouter }

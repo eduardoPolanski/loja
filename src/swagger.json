@@ -1,25 +1,117 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title":"API de manipulação",
+        "title": "API de manipulação",
         "description": "Essas API tem objetivo de manipulação",
-        "contact":{
-            "email":"eduardo_polanski@hotmail.com"
+        "contact": {
+            "email": "eduardo_polanski@hotmail.com"
         },
-        "version":"1.0.0"
+        "version": "1.0.0"
     },
     "servers": [
         {
-        "url": "http://localhost:3333/v1"
+            "url": "http://localhost:3333/v1"
         }
     ],
     "paths": {
+        "/signup": {
+            "post": {
+                "summary": "Cadastro de Usuario",
+                "description": "Essa rota será responsavel por cadastrar um novo usuario. ",
+                "tags": [
+                    "User"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "product": {
+                                    "value": {
+                                        "name": "admin",
+                                        "email": "admin@gmail.com",
+                                        "password": "123456",
+                                        "admin": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "User already exists"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "summary": "Login de usuario",
+                "description": "Essa rota será responsavel por fazer o login do usuario. Sera gerado um token, que é usado para acessar algumas rotas ",
+                "tags": [
+                    "User"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            },
+                            "examples": {
+                                "product": {
+                                    "value": {
+                                        "email": "admin@gmail.com",
+                                        "password": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "User already exists"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/product": {
             "post": {
                 "summary": "Cadastro de produto",
                 "description": "Essa rota será responsavel por cadastrar um novo produto. Em ingredients passar o ID do ingrediente",
-                "tags": ["Products"],
-                "security": [{"bearerAuth": [] }],
+                "tags": [
+                    "Products"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -32,29 +124,72 @@
                                         "name": "Café com leite",
                                         "price": 2,
                                         "image": "cafecomleite",
-                                        "ingredients": ["614a6a85d3b73dbfe2430e3a","614a6a9ed3b73dbfe2430e3d"],
+                                        "ingredients": [
+                                            "614a6a85d3b73dbfe2430e3a",
+                                            "614a6a9ed3b73dbfe2430e3d"
+                                        ],
                                         "stock": 10
                                     }
                                 }
                             }
                         }
-                        
                     }
                 },
                 "responses": {
                     "401": {
-                        "description":"Unauthorizes"
+                        "description": "Unauthorizes"
                     },
                     "400": {
-                        "description":"Product already exists"
+                        "description": "Product already exists"
                     },
                     "200": {
-                        "description":"Ok",
+                        "description": "Ok",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type":"object",
-                                    "$ref":"#/components/schemas/Product"
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/productreport/": {
+            "get": {
+                "summary": "Relatorio do produto",
+                "description": "Essa rota será responsavel por mostrar o relatorio do produto.",
+                "tags": [
+                    "Products"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name":"name",
+                        "in": "query",
+                        "description":"Nome do produto para busca",
+                        "required":true
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "Unauthorizes"
+                    },
+                    "400": {
+                        "description": "Product not found"
+                    },
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
                                 }
                             }
                         }
@@ -66,8 +201,14 @@
             "post": {
                 "summary": "Cadastro de ingredientes",
                 "description": "Essa rota será responsavel por cadastrar um novo ingrediente.",
-                "tags": ["Ingredients"],
-                "security": [{"bearerAuth": [] }],
+                "tags": [
+                    "Ingredients"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -83,23 +224,23 @@
                                     }
                                 }
                             }
-                        }  
+                        }
                     }
                 },
                 "responses": {
                     "401": {
-                        "description":"Unauthorizes"
+                        "description": "Unauthorizes"
                     },
                     "400": {
-                        "description":"Product already exists"
+                        "description": "Product already exists"
                     },
                     "200": {
-                        "description":"Ok",
+                        "description": "Ok",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type":"object",
-                                    "$ref":"#/components/schemas/Ingredient"
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Ingredient"
                                 }
                             }
                         }
@@ -111,8 +252,14 @@
             "post": {
                 "summary": "Cadastro de venda de produto",
                 "description": "Essa rota será responsavel por cadastrar venda de produto e ver se tem estoque para venda.",
-                "tags": ["sellProduct"],
-                "security": [{"bearerAuth": [] }],
+                "tags": [
+                    "sellProduct"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -129,35 +276,53 @@
                                 }
                             }
                         }
-                        
                     }
                 },
                 "responses": {
                     "401": {
-                        "description":"Unauthorizes"
+                        "description": "Unauthorizes"
                     },
                     "400": {
-                        "description":"Product already exists"
+                        "description": "Product already exists"
                     },
                     "200": {
-                        "description":"Ok",
+                        "description": "Ok",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type":"object",
-                                    "$ref":"#/components/schemas/Product"
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Product"
                                 }
                             }
                         }
                     }
                 }
             }
-
         }
     },
-    "components":{
-        "schemas":{
-            "Ingredient":{
+    "components": {
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "admin": {
+                        "type": "boolean"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Ingredient": {
                 "type": "object",
                 "properties": {
                     "name": {
@@ -174,7 +339,7 @@
                     }
                 }
             },
-            "Product":{
+            "Product": {
                 "type": "object",
                 "properties": {
                     "name ": {
@@ -183,8 +348,8 @@
                     "price": {
                         "type": "number"
                     },
-                    "amount": {
-                        "type": "string"
+                    "image": {
+                        "type":"string"
                     },
                     "ingredients": {
                         "type": "string"
@@ -213,10 +378,10 @@
             }
         },
         "securitySchemes": {
-            "bearerAuth":{
+            "bearerAuth": {
                 "type": "http",
                 "scheme": "bearer",
-                "bearerFormat": "JWT" 
+                "bearerFormat": "JWT"
             }
         }
     }

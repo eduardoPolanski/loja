@@ -6,7 +6,6 @@ class CreateProductController {
         async handle(request: Request, response: Response){
             const {name, price, ingredients, stock}  = request.body
             var image = request.file.path
-            console.log(request.file)
             
             await sharp(image).resize(200).toFormat('jpeg').toFile(`./public/media/${request.file.filename}.jpg`)
 

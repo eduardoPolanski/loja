@@ -4,7 +4,7 @@ import { GetProductService } from "../services/GetProductService"
 
 class GetProductController {
         async handle(request: Request, response: Response){
-            const {name} = request.body
+            const {name} = request.params
 
             const getProductService = new GetProductService()
 

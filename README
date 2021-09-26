@@ -1,0 +1,29 @@
+🚀 Tecnologias
+
+Express
+NodeJs
+MongoDB
+Mongoose
+Multer
+bcrypt
+jsonwebtoken
+
+▶️ Como Instalar e Rodar Projeto
+
+Clone this repository
+$ git clone https://github.com/eduardoPolanski/loja.git
+
+$ cd loja
+
+#Necessário MongoDB instalado
+
+#Instalando Dependências
+
+	$ yarn add
+	$ yarn run dev 
+
+#Rotas com auteticadas precisam do token que é gerando quando feito login
+
+# Documentação está na rota localhost:3333/api-docs
+
+# Servidor rodando na porta 3333
