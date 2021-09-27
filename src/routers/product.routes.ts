@@ -33,7 +33,7 @@ const deleteProductController = new DeleteProductController()
 
 productRouter.post("/product", isAuthenticated, isAdmin, upload.single('image') ,createProductController.handle)
 productRouter.get("/products", listProductController.handle)
-productRouter.delete("/product/:name", deleteProductController.handle)
+productRouter.delete("/product/:name", isAuthenticated, isAdmin, deleteProductController.handle)
 
 productRouter.post("/sellproduct", isAuthenticated, isAdmin, sellProductController.handle)
 productRouter.get("/productreport/:name", getProductController.handle)
